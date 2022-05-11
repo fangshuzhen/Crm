@@ -1,0 +1,587 @@
+definitions:
+  entity.Contract:
+    properties:
+      customerId:
+        type: string
+      desc:
+        type: string
+      endDate:
+        type: string
+      files:
+        items:
+          type: string
+        type: array
+      id:
+        type: string
+      startDate:
+        type: string
+      state:
+        type: string
+      title:
+        type: string
+    type: object
+  entity.ContractAddFile:
+    properties:
+      files:
+        type: string
+      id:
+        type: string
+    type: object
+  entity.Customer:
+    properties:
+      communication:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      title:
+        type: string
+      type:
+        items:
+          type: string
+        type: array
+      url:
+        type: string
+    type: object
+  entity.DtoAdminLogin:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  entity.DtoAdminUserList:
+    properties:
+      keyword:
+        description: 搜索的关键字
+        type: string
+      page:
+        description: 页码
+        type: integer
+      size:
+        description: 每页显示多少条
+        type: integer
+    type: object
+  entity.DtoContractList:
+    properties:
+      keyword:
+        description: 搜索的关键字
+        type: string
+      page:
+        description: 页码
+        type: integer
+      size:
+        description: 每页显示多少条
+        type: integer
+      token:
+        example: xxxx
+        type: string
+      version:
+        example: "1001"
+        type: string
+    required:
+    - token
+    - version
+    type: object
+  entity.DtoCustomerList:
+    properties:
+      keyword:
+        description: 搜索的关键字
+        type: string
+      page:
+        description: 页码
+        type: integer
+      size:
+        description: 每页显示多少条
+        type: integer
+      token:
+        example: xxxx
+        type: string
+      version:
+        example: "1001"
+        type: string
+    required:
+    - token
+    - version
+    type: object
+  entity.DtoFindUser:
+    properties:
+      name:
+        type: string
+    type: object
+  entity.DtoUser:
+    properties:
+      name:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  entity.UserInfo:
+    properties:
+      avatar:
+        type: string
+      id:
+        type: string
+      introduction:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      roles:
+        items:
+          type: string
+        type: array
+      token:
+        type: string
+      username:
+        type: string
+    type: object
+  response.R:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a sample server Petstore server.
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /crm/contract/addFile:
+    post:
+      consumes:
+      - application/json
+      description: 添加一个新文件
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.ContractAddFile'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 添加文件
+      tags:
+      - CRMcontract相关接口
+  /crm/contract/create:
+    post:
+      consumes:
+      - application/json
+      description: 添加一个新合同
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Contract'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 添加新合同
+      tags:
+      - CRMcontract相关接口
+  /crm/contract/delete:
+    post:
+      consumes:
+      - application/json
+      description: 删除合同信息
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Contract'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 删除合同信息
+      tags:
+      - CRMcontract相关接口
+  /crm/contract/list:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DtoContractList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 获取客户列表
+      tags:
+      - CRMcontract相关接口
+  /crm/contract/update:
+    post:
+      consumes:
+      - application/json
+      description: 修改合同信息
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Contract'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 修改合同信息
+      tags:
+      - CRMcontract相关接口
+  /crm/contract/upload:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 上传合同文件
+      tags:
+      - CRMcontract相关接口
+  /crm/customer/create:
+    post:
+      consumes:
+      - application/json
+      description: 添加一个新用户
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Customer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 添加新用户
+      tags:
+      - CRM-customer相关接口
+  /crm/customer/delete:
+    post:
+      consumes:
+      - application/json
+      description: 删除用户信息
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Customer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 删除用户信息
+      tags:
+      - CRM-customer相关接口
+  /crm/customer/list:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DtoCustomerList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 获取客户列表
+      tags:
+      - CRM-customer相关接口
+  /crm/customer/update:
+    post:
+      consumes:
+      - application/json
+      description: 修改用户信息
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Customer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 修改用户信息
+      tags:
+      - CRM-customer相关接口
+  /user/admin/create:
+    post:
+      consumes:
+      - application/json
+      description: 添加一个新用户
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UserInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 添加新用户
+      tags:
+      - Admin相关的接口
+  /user/admin/delete:
+    post:
+      consumes:
+      - application/json
+      description: 删除用户信息
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UserInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 删除用户信息
+      tags:
+      - Admin相关的接口
+  /user/admin/info:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 获取用户信息
+      tags:
+      - Admin相关接口
+  /user/admin/list:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DtoAdminUserList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 测试userlist
+      tags:
+      - Admin相关的接口
+  /user/admin/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DtoAdminLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 登录
+      tags:
+      - Admin相关接口
+  /user/admin/logout:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 登出
+      tags:
+      - Admin相关接口
+  /user/admin/update:
+    post:
+      consumes:
+      - application/json
+      description: 修改用户信息
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UserInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 修改用户信息
+      tags:
+      - Admin相关的接口
+  /user/hello/delete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DtoFindUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 测试Delete
+      tags:
+      - 测试相关的接口
+  /user/hello/edit:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DtoUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 测试Edit
+      tags:
+      - 测试相关的接口
+  /user/hello/find:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DtoFindUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 测试Find
+      tags:
+      - 测试相关的接口
+  /user/hello/insert:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: data
+        in: body
+        name: model
+        required: true
+        schema:
+          $ref: '#/definitions/entity.DtoUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.R'
+      summary: 测试Insert
+      tags:
+      - 测试相关的接口
+swagger: "2.0"

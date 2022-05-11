@@ -1,0 +1,30 @@
+[Server]
+Name = 'crm-center'
+Port = 8882
+Host = ''
+
+#MongoDb配置
+[MongoDb]
+Name = 'db_go'
+Password = ''
+Timeout = 6
+Type = 'mongo'
+Url = ['localhost:27017']
+UserName = ''
+MaxPoolSize = 1024
+ReplicaSetName = ''
+Source = ''
+
+#微服务配置
+[MySQL]
+Name = 'db-mysql'
+Password = '123456'
+UserName = 'root'
+
+[Micro]
+Etcd = [
+    'localhost:2379'
+]
+Name = 'com.ipk.hello.crmCenter'
+Address = ':18882'
+Advertise = 'localhost:18882'

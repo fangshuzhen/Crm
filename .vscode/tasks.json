@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "build:prod",
+			"path": "cmd/admin/web/vue-element-admin-master/",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build:prod - cmd/admin/web/vue-element-admin-master",
+			"detail": "vue-cli-service build"
+		},
+		{
+			"label": "start web",
+			"type": "shell",
+			"command": "cd cmd/admin/web/vue-element-admin-master; npm run dev",
+			"problemMatcher":[],
+			"group": {
+				"kind": "build"
+			}
+		}
+	]
+}

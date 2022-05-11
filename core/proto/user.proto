@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./;pb";
+
+service GreeterUser{
+    rpc GetUserList(RequestUserList) returns (ReplyUserList){}
+    rpc CheckToken(RequestCheckToken) returns(User){}
+}
+
+message RequestUserList{}
+
+message RequestCheckToken{
+    string token = 1;
+}
+
+message ReplyUserList{
+    repeated User userList = 1;
+}
+
+message User{
+    string id = 1;
+    string username = 2;
+    string password = 3;
+    string name = 4;
+    string avatar = 5;
+    string introduction = 6;
+    repeated string roles = 7;
+    string token = 8;
+}
