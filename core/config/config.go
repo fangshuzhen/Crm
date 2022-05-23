@@ -59,3 +59,9 @@ func InitConfig(defaultConfigPath string) error {
 
 	return nil
 }
+
+//存储日志文件
+const (
+	Log_FILE_PATH = "E:/"
+	LOG_FILE_NAME = "hello_"
+)

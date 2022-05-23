@@ -4,10 +4,10 @@
             <el-row class="tool-bar">
                 <el-row class="left">
                     <el-input v-model="keyword" placeholder="关键字" style="width:200px;"></el-input>
-                    <el-button @click="list" type="primary" icon="el-icon-search" style="margin-left:5px;">搜索</el-button>
+                    <el-button @click="list" type="primary" icon="el-icon-search" style="margin-left:5px;" plain>搜索</el-button>
                 </el-row>
                 <el-row class="right">
-                    <el-button type="success" v-permission="['editor','admin']" @click="create">添加新客户</el-button>
+                    <el-button type="success" v-permission="['editor','admin']" @click="create" plain>添加新客户</el-button>
                 </el-row>
             </el-row>
         </el-row>
@@ -16,13 +16,13 @@
             <el-table-column prop="id" label="ID" min-width="100" header-align="center" align="center" />
             <el-table-column prop="name" label="姓名" min-width="100" header-align="center" align="center" />
             <el-table-column prop="title" label="标题" min-width="100" header-align="center" align="center" />
-            <el-table-column prop="url" label="URL" min-width="100" header-align="center" align="center" />
+            <el-table-column prop="email" label="Email" min-width="100" header-align="center" align="center" />
             <el-table-column prop="communication" label="联系方式" min-width="100" header-align="center" align="center" />
             <el-table-column prop="type" label="类型" min-width="100" header-align="center" align="center" />
-            <el-table-column  label="操作" min-width="100" header-align="center" align="center" >
+            <el-table-column  label="操作" min-width="150" header-align="center" align="center" >
                 <template slot-scope="scope">
-                    <el-button type="warning" icon="el-icon-edit" v-permission="['editor','admin']" circle @click="update(scope.row)"></el-button>
-                    <el-button type="danger" icon="el-icon-delete" v-permission="['admin']" circle @click="remove(scope.row.id)"></el-button>
+                    <el-button type="primary" icon="el-icon-edit" v-permission="['editor','admin']"  @click="update(scope.row)" plain>编辑</el-button>
+                    <el-button type="danger" icon="el-icon-delete" v-permission="['admin']"  @click="remove(scope.row.id)" plain>删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -52,8 +52,8 @@
                 <el-form-item label="标题">
                     <el-input v-model="Customer.title" style="width:300px;"></el-input>
                 </el-form-item>
-                <el-form-item label="URL">
-                    <el-input v-model="Customer.url" style="width:300px;"></el-input>
+                <el-form-item label="Email">
+                    <el-input v-model="Customer.email" style="width:300px;"></el-input>
                 </el-form-item>
                 <el-form-item label="类型">
                     <el-checkbox-group v-model="Customer.type">

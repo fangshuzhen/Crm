@@ -10,7 +10,7 @@ type Customer struct {
 	Id            bson.ObjectId `json:"id" bson:"_id"`
 	Title         string        `json:"title" bson:"title"`
 	Name          string        `json:"name" bson:"name"`
-	Url           string        `json:"url" bson:"url"`
+	Email         string        `json:"email" bson:"email"`
 	Communication string        `json:"communication" bson:"communication"`
 	Type          []string      `json:"type" bson:"type"`
 }

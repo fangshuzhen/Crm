@@ -8,6 +8,7 @@ import (
 	"hello/core/config"
 	myhttp "hello/core/http"
 	"hello/core/micro"
+	"hello/core/middleware"
 	"hello/core/mongo"
 	"log"
 	"net/http"
@@ -60,6 +61,10 @@ func main() {
 	router.Use(myhttp.Cors())
 	route.LoadRoute(router)
 	// router.Run(":8881")
+
+	//日志记录
+	router.Use(middleware.LoggerToFile())
+	router.Use(middleware.LoggerToMongo())
 
 	s := &http.Server{
 		Addr:              fmt.Sprintf("%s:%d", config.Conf.Server.Host, config.Conf.Server.Port),

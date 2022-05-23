@@ -43,7 +43,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/entity.ContractAddFile"
+                            "$ref": "#/definitions/entity.Contract"
                         }
                     }
                 ],
@@ -104,6 +104,40 @@ var doc = `{
                     "CRMcontract相关接口"
                 ],
                 "summary": "删除合同信息",
+                "parameters": [
+                    {
+                        "description": "data",
+                        "name": "model",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.Contract"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.R"
+                        }
+                    }
+                }
+            }
+        },
+        "/crm/contract/deleteFile": {
+            "post": {
+                "description": "删除一个文件",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CRMcontract相关接口"
+                ],
+                "summary": "删除文件",
                 "parameters": [
                     {
                         "description": "data",
@@ -349,6 +383,39 @@ var doc = `{
                 }
             }
         },
+        "/log/logger/list": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Logger相关的接口"
+                ],
+                "summary": "测试Logger日志列表",
+                "parameters": [
+                    {
+                        "description": "data",
+                        "name": "model",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/entity.DtoLoggerList"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.R"
+                        }
+                    }
+                }
+            }
+        },
         "/user/admin/create": {
             "post": {
                 "description": "添加一个新用户",
@@ -560,138 +627,6 @@ var doc = `{
                     }
                 }
             }
-        },
-        "/user/hello/delete": {
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "测试相关的接口"
-                ],
-                "summary": "测试Delete",
-                "parameters": [
-                    {
-                        "description": "data",
-                        "name": "model",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/entity.DtoFindUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.R"
-                        }
-                    }
-                }
-            }
-        },
-        "/user/hello/edit": {
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "测试相关的接口"
-                ],
-                "summary": "测试Edit",
-                "parameters": [
-                    {
-                        "description": "data",
-                        "name": "model",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/entity.DtoUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.R"
-                        }
-                    }
-                }
-            }
-        },
-        "/user/hello/find": {
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "测试相关的接口"
-                ],
-                "summary": "测试Find",
-                "parameters": [
-                    {
-                        "description": "data",
-                        "name": "model",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/entity.DtoFindUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.R"
-                        }
-                    }
-                }
-            }
-        },
-        "/user/hello/insert": {
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "测试相关的接口"
-                ],
-                "summary": "测试Insert",
-                "parameters": [
-                    {
-                        "description": "data",
-                        "name": "model",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/entity.DtoUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/response.R"
-                        }
-                    }
-                }
-            }
         }
     },
     "definitions": {
@@ -716,6 +651,9 @@ var doc = `{
                 "id": {
                     "type": "string"
                 },
+                "name": {
+                    "type": "string"
+                },
                 "startDate": {
                     "type": "string"
                 },
@@ -727,21 +665,13 @@ var doc = `{
                 }
             }
         },
-        "entity.ContractAddFile": {
-            "type": "object",
-            "properties": {
-                "files": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                }
-            }
-        },
         "entity.Customer": {
             "type": "object",
             "properties": {
                 "communication": {
+                    "type": "string"
+                },
+                "email": {
                     "type": "string"
                 },
                 "id": {
@@ -758,9 +688,6 @@ var doc = `{
                     "items": {
                         "type": "string"
                     }
-                },
-                "url": {
-                    "type": "string"
                 }
             }
         },
@@ -850,25 +777,32 @@ var doc = `{
                 }
             }
         },
-        "entity.DtoFindUser": {
+        "entity.DtoLoggerList": {
             "type": "object",
+            "required": [
+                "token",
+                "version"
+            ],
             "properties": {
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "entity.DtoUser": {
-            "type": "object",
-            "properties": {
-                "name": {
+                "keyword": {
+                    "description": "搜索的关键字",
                     "type": "string"
                 },
-                "password": {
-                    "type": "string"
+                "page": {
+                    "description": "页码",
+                    "type": "integer"
                 },
-                "username": {
-                    "type": "string"
+                "size": {
+                    "description": "每页显示多少条",
+                    "type": "integer"
+                },
+                "token": {
+                    "type": "string",
+                    "example": "xxxx"
+                },
+                "version": {
+                    "type": "string",
+                    "example": "1001"
                 }
             }
         },

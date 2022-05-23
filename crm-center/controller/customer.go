@@ -28,9 +28,6 @@ func CustomerList(c *gin.Context) {
 
 		fmt.Printf("用户[%s]来获取客户列表信息", user.Username)
 
-		// result = []entity.Customer{}
-		// result = append(result, entity.Customer{Title: "珠海顶峰互动", Name: "顶峰互动"})
-
 		result, err = service.GetCustomerServer().List(&reqData)
 	}
 	response.Json(c, result, err)

@@ -76,6 +76,7 @@
 <script>
 import { validUsername } from '@/utils/validate'
 import SocialSign from './components/SocialSignin'
+import Cookies from "js-cookie"
 
 export default {
   name: 'Login',
@@ -98,7 +99,7 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '111111'
+        password: '110110'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -155,6 +156,10 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
+
+          //获取登录者用户名
+          Cookies.set('username',this.loginForm.username)
+
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {

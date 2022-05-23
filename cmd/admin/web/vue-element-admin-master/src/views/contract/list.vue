@@ -5,10 +5,10 @@
                 <el-row class="tool-bar">
                     <el-row class="left">
                         <el-input v-model="keyword" placeholder="关键字" style="width:200px;"></el-input>
-                        <el-button @click="list" type="primary" icon="el-icon-search" style="margin-left:5px;">搜索</el-button>
+                        <el-button @click="list" type="primary" icon="el-icon-search" style="margin-left:5px;" plain>搜索</el-button>
                     </el-row>
                     <el-row class="right">
-                        <el-button type="success" @click="create">添加合同</el-button>
+                        <el-button type="success" @click="create" plain>添加合同</el-button>
                     </el-row>
                 </el-row>
             </el-row>
@@ -29,9 +29,9 @@
                 </el-table-column>
                 <el-table-column  label="操作" min-width="150" header-align="center" align="center" >
                     <template slot-scope="scope">
-                        <el-button type="primary" title="合同文件"  @click="fileList(scope.row)">合同文件</el-button>
-                        <el-button type="warning" icon="el-icon-edit" v-permission="['editor','admin']" circle @click="update(scope.row)"></el-button>
-                        <el-button type="danger" icon="el-icon-delete" v-permission="['admin']" circle @click="remove(scope.row.id)"></el-button>
+                        <el-button type="primary" title="合同文件"  @click="fileList(scope.row)" plain>合同文件</el-button>
+                        <el-button type="warning" icon="el-icon-edit" v-permission="['editor','admin']"  @click="update(scope.row)" plain></el-button>
+                        <el-button type="danger" icon="el-icon-delete" v-permission="['admin']"  @click="remove(scope.row.id)" plain></el-button>
                     </template>
                 </el-table-column>
             </el-table>

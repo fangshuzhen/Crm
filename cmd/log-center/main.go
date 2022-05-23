@@ -9,10 +9,7 @@ import (
 	"hello/core/micro"
 	"hello/core/middleware"
 	"hello/core/mongo"
-	"hello/core/proto/pb"
-	"hello/user-center/micro_controller"
-	"hello/user-center/route"
-
+	"hello/log-center/route"
 	"log"
 	"net/http"
 	"os"
@@ -27,6 +24,7 @@ import (
 )
 
 func init() {
+
 	res := flag.String("res", "./res/configuration.toml", "Res:配置文件")
 	flag.Parse()
 
@@ -49,10 +47,10 @@ func init() {
 
 func main() {
 
-	//启动微服务
+	// 启动微服务
 	go micro.RunGrpc(config.Conf.Micro, func(server *grpc.Server) {
 		// TODO ：注册微服务方法
-		pb.RegisterGreeterUserServer(server, &micro_controller.User{})
+		// pb.RegisterGreeterUserServer(server, &micro_controller.User{})
 
 		reflection.Register(server)
 	})
@@ -63,11 +61,10 @@ func main() {
 	router := gin.Default()
 	router.Use(myhttp.Cors())
 	route.LoadRoute(router)
-	// 日志记录
-	router.Use(middleware.LoggerToFile())
-	router.Use(middleware.LoggerToMongo())
 
-	// router.Run(":8881")
+	//日志记录
+	// router.Use(middleware.LoggerToFile())
+	router.Use(middleware.LoggerToMongo())
 
 	s := &http.Server{
 		Addr:              fmt.Sprintf("%s:%d", config.Conf.Server.Host, config.Conf.Server.Port),
@@ -84,7 +81,6 @@ func main() {
 
 	go func() {
 		quit := make(chan os.Signal)
-
 		signal.Notify(quit, syscall.SIGINT, syscall.SIGALRM)
 		<-quit
 		log.Panicln("Shutting down server......")
@@ -102,8 +98,7 @@ func main() {
 		log.Println("Server exiting")
 
 	}()
-
-	log.Printf("监听http服务：%s:%d", config.Conf.Server.Host, config.Conf.Server.Port)
+	// log.Printf("监听http服务：%s:%d", config.Conf.Server.Host, config.Conf.Server.Port)
 
 	// 启动http监听
 	s.ListenAndServe()

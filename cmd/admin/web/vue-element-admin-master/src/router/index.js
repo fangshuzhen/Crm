@@ -119,6 +119,18 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/logger',
+    component: Layout,
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/logger/list'),
+        name: 'Documentation',
+        meta: { title: '日志记录', icon: 'documentation', affix: true }
+      }
+    ]
+  },
   // {
   //   path: '/documentation',
   //   component: Layout,

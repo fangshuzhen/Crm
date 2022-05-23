@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
 
+
         
         {
             "name": "user-center",
@@ -26,6 +27,13 @@
             "request": "launch",
             "mode": "debug",
             "program": "cmd/admin/main.go"
+        },
+        {
+            "name": "log-center",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/log-center/main.go"
         },
     ]
 }

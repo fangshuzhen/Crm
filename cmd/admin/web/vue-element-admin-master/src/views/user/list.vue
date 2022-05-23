@@ -4,10 +4,10 @@
             <el-row class="tool-bar">
                 <el-row class="left">
                     <el-input v-model="keyword" placeholder="关键字" style="width:200px;"></el-input>
-                    <el-button @click="list" type="primary" icon="el-icon-search" style="margin-left:5px;">搜索</el-button>
+                    <el-button @click="list" type="primary" icon="el-icon-search" style="margin-left:5px;" plain>搜索</el-button>
                 </el-row>
                 <el-row class="right">
-                    <el-button type="success" v-permission="['editor','admin']" @click="create">添加新用户</el-button>
+                    <el-button type="success" v-permission="['editor','admin']" @click="create" plain>添加新用户</el-button>
                 </el-row>
             </el-row>
         </el-row>
@@ -19,10 +19,10 @@
             <el-table-column prop="avatar" label="头像" min-width="100" header-align="center" align="center" />
             <el-table-column prop="introduction" label="描述" min-width="100" header-align="center" align="center" />
             <el-table-column prop="roles" label="权限" min-width="100" header-align="center" align="center" />
-            <el-table-column  label="操作" min-width="100" header-align="center" align="center" >
+            <el-table-column  label="操作" min-width="150" header-align="center" align="center" >
                 <template slot-scope="scope">
-                    <el-button type="warning" icon="el-icon-edit" v-permission="['editor','admin']" circle @click="update(scope.row)"></el-button>
-                    <el-button type="danger" icon="el-icon-delete" v-permission="['admin']" circle @click="remove(scope.row.id)"></el-button>
+                    <el-button type="primary" icon="el-icon-edit" v-permission="['editor','admin']"  @click="update(scope.row)" plain>编辑</el-button>
+                    <el-button type="danger" icon="el-icon-delete" v-permission="['admin']"  @click="remove(scope.row.id,scope.row.username)" plain>删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -84,6 +84,7 @@
 
 // import http from '@/utils/http'
 import {listUser,createUser,updateUser,deleteUser} from '@/api/user'
+import Cookies from "js-cookie"
 
 export default {
     data(){
@@ -95,7 +96,8 @@ export default {
             tableData: [],
             dialogVisible: false,
             dialogTitle:"",
-            userInfo : {}
+            userInfo : {},
+            checkUser:"false"
         }
     },
     created(){
@@ -115,6 +117,7 @@ export default {
         },
         // 添加提交
         add(){
+            //新增用户
             createUser(this.userInfo).then(res=>{
                 this.$message({
                     message:'添加成功',
@@ -143,19 +146,29 @@ export default {
             })
         },
         // 删除提交
-        remove(userId){
+        remove(userId,userName){
             this.userInfo = {
-                id :userId
+                id :userId,
+                username:userName
             }
             // 删除确认
             if (window.confirm ("你确定真的要删除吗")){
-                deleteUser(this.userInfo).then(res=>{
+                // 判断将要删除用户是否当前在线
+                if(this.userInfo.username == Cookies.get("username")){
                     this.$message({
-                        message:'删除成功',
-                        type:'success'    
+                        message:'不可删除当前已登录用户: '+ Cookies.get("username") +" !",
+                        type:'error'    
                     });
-                    this.list();
-                })
+                }    
+                else{
+                    deleteUser(this.userInfo).then(res=>{
+                        this.$message({
+                            message:'删除成功',
+                            type:'success'    
+                        });
+                        this.list();
+                    })   
+                }
             }
         },
         list(){
